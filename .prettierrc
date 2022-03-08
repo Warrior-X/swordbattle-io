@@ -1,1 +1,5 @@
-"@yandeu/prettier-config"
+{
+  "trailingComma": "all",
+  "semi": true,
+  "tabWidth": 4
+}
