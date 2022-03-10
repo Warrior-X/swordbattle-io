@@ -13,7 +13,8 @@ export default class GameScene extends Phaser.Scene {
                 color: "#000000",
                 fontSize: "24px",
             })
-            .setOrigin(1, 0);
+            .setOrigin(1, 0)
+            .setScrollFactor(0);
         this.player = this.add.existing(new Player(this));
 
         this.cameras.main.startFollow(this.player, true, 0.8, 0.8);
