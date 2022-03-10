@@ -1,4 +1,8 @@
+import Player from "../actors/Player";
+
 export default class GameScene extends Phaser.Scene {
+    private player: Player;
+
     constructor(version: string) {
         super({ key: "GameScene" });
     }
@@ -10,7 +14,12 @@ export default class GameScene extends Phaser.Scene {
                 fontSize: "24px",
             })
             .setOrigin(1, 0);
+        this.player = this.add.existing(new Player(this));
+
+        this.cameras.main.startFollow(this.player, true, 0.8, 0.8);
     }
 
-    update() {}
+    update() {
+        this.player.update();
+    }
 }

@@ -7,6 +7,9 @@ const dev = {
     devtool: "eval",
     devServer: {
         open: true,
+        allowedHosts: [
+            ".gitpod.io"
+        ]
     },
 };
 
