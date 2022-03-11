@@ -1,5 +1,5 @@
 import { Vector } from "./vector";
 
 export class ApiPlayer {
-    public pos = new Vector(200, 200);
+    public pos = new Vector(500, 500);
 }

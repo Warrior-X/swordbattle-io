@@ -1,4 +1,5 @@
 import Player from "../actors/Player";
+import { config } from "../config";
 
 export default class GameScene extends Phaser.Scene {
     private player: Player;
@@ -8,6 +9,18 @@ export default class GameScene extends Phaser.Scene {
     }
 
     create() {
+        const mapTotalSize = config.mapSize * config.tileSize;
+        this.cameras.main.setBounds(0, 0, mapTotalSize, mapTotalSize);
+        this.physics.world.setBounds(0, 0, mapTotalSize, mapTotalSize);
+
+        for (let x = 0; x < config.mapSize; x++) {
+            for (let y = 0; y < config.mapSize; y++) {
+                let image = this.add.image(x*config.tileSize, y*config.tileSize, "bg").setOrigin(0, 0);
+                image.displayWidth = config.tileSize;
+                image.displayHeight = config.tileSize;
+            }
+        }
+
         this.add
             .text(this.cameras.main.width - 15, 15, `Swordbattle.io v0.1.0`, {
                 color: "#000000",
@@ -15,9 +28,15 @@ export default class GameScene extends Phaser.Scene {
             })
             .setOrigin(1, 0)
             .setScrollFactor(0);
-        this.player = this.add.existing(new Player(this));
+            
+        this.player = new Player(this);
+        let aPlayer = this.add.existing(this.player);
+        let physicsPlayer = this.physics.add.existing(this.player);
 
-        this.cameras.main.startFollow(this.player, true, 0.4, 0.4);
+        (physicsPlayer.body as Phaser.Physics.Arcade.Body).setCollideWorldBounds(true);
+        (physicsPlayer.body as Phaser.Physics.Arcade.Body).setAllowGravity(false);
+
+        this.cameras.main.startFollow(this.player, true, 0.2, 0.2);
     }
 
     update() {
