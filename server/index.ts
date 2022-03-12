@@ -5,18 +5,18 @@ import cors from "cors";
 
 const server = express();
 const http = createServer(server);
-const io = new Server(http, {cors: {origin: "*"}});
+const io = new Server(http, { cors: { origin: "*" } });
 
-server.use(cors())
+server.use(cors());
 
-io.on('connection', function (socket) {
-    console.log('A user connected: ' + socket.id);
+io.on("connection", function (socket) {
+    console.log("A user connected: " + socket.id);
 
-    socket.on('disconnect', function () {
-        console.log('A user disconnected: ' + socket.id);
+    socket.on("disconnect", function () {
+        console.log("A user disconnected: " + socket.id);
     });
 });
 
 http.listen(5000, function () {
-    console.log('Server started!');
+    console.log("Server started!");
 });

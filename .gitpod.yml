@@ -1,0 +1,11 @@
+tasks:
+   - name: Server
+     before: yarn
+   - name: Client
+     before: cd client && yarn
+ports:
+   - port: 5000
+     visibility: public
+     onOpen: ignore
+   - port: 8080
+     visibility: public
