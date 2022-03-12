@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "ES2015",
-    "module": "ES2015",
+    "target": "ES2016",
+    "module": "CommonJS",
 
     "strict": true,
     "esModuleInterop": true,
@@ -17,6 +17,6 @@
     "moduleResolution": "node",
     "lib": ["dom", "esnext"]
   },
-  "include": ["src/**/*"],
+  "include": ["client/src/**/*", "server/**/*"],
   "exclude": ["node_modules", "**/*.spec.ts"]
 }

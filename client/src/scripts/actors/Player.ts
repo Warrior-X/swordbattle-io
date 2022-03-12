@@ -10,6 +10,8 @@ type Movement = {
 
 export default class Player extends Actor {
     private player = new ApiPlayer();
+    private speed = 250;
+
     private movement: Movement = {
         up: null,
         down: null,
@@ -32,16 +34,16 @@ export default class Player extends Actor {
         (this.body as Phaser.Physics.Arcade.Body).setVelocity(0, 0);
 
         if (this.movement["up"] && this.movement["up"].isDown) {
-            (this.body as Phaser.Physics.Arcade.Body).setVelocityY(-150);
+            (this.body as Phaser.Physics.Arcade.Body).setVelocityY(-this.speed);
         }
         if (this.movement["down"] && this.movement["down"].isDown) {
-            (this.body as Phaser.Physics.Arcade.Body).setVelocityY(150);
+            (this.body as Phaser.Physics.Arcade.Body).setVelocityY(this.speed);
         }
         if (this.movement["left"] && this.movement["left"].isDown) {
-            (this.body as Phaser.Physics.Arcade.Body).setVelocityX(-150);
+            (this.body as Phaser.Physics.Arcade.Body).setVelocityX(-this.speed);
         }
         if (this.movement["right"] && this.movement["right"].isDown) {
-            (this.body as Phaser.Physics.Arcade.Body).setVelocityX(150);
+            (this.body as Phaser.Physics.Arcade.Body).setVelocityX(this.speed);
         }
 
         const position = (this.body as Phaser.Physics.Arcade.Body).position;

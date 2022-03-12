@@ -1,8 +1,10 @@
 import Player from "../actors/Player";
 import { config } from "../config";
+import io, {Socket} from 'socket.io-client';
 
 export default class GameScene extends Phaser.Scene {
     private player: Player;
+    private socket: Socket;
 
     constructor(version: string) {
         super({ key: "GameScene" });
@@ -37,6 +39,11 @@ export default class GameScene extends Phaser.Scene {
         (physicsPlayer.body as Phaser.Physics.Arcade.Body).setAllowGravity(false);
 
         this.cameras.main.startFollow(this.player, true, 0.2, 0.2);
+
+        this.socket = io("https://5000-warriorx-swordbattleio-wg76yx9a0ut.ws-us34.gitpod.io"); // I'm developing this in GitPod
+        this.socket.on('connect', function () {
+        	console.log('Connected!');
+        });
     }
 
     update() {
