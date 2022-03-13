@@ -4,7 +4,6 @@ import io, { Socket } from "socket.io-client";
 
 export default class GameScene extends Phaser.Scene {
     private player: Player;
-    private bg: Phaser.GameObjects.TileSprite;
     private socket: Socket;
 
     constructor(version: string) {
@@ -26,9 +25,6 @@ export default class GameScene extends Phaser.Scene {
 
     update() {
         this.player.update();
-
-        const playerPos = this.player.getPosition();
-        this.bg.setTilePosition(playerPos.x, playerPos.y);
     }
 
     private setWorldBounds() {
@@ -38,13 +34,15 @@ export default class GameScene extends Phaser.Scene {
     }
 
     private addBg() {
-        const { width, height } = this.sys.canvas;
-
-        this.bg = this.add
-            .tileSprite(0, 0, width, height, "bg")
-            .setOrigin(0, 0);
-        this.bg.setTileScale(config.tileSize / 800);
-        this.bg.setScrollFactor(0);
+        for (let x = 0; x < config.mapSize; x++) {
+            for (let y = 0; y < config.mapSize; y++) {
+                let image = this.add
+                    .image(x * config.tileSize, y * config.tileSize, "bg")
+                    .setOrigin(0, 0);
+                image.displayWidth = config.tileSize;
+                image.displayHeight = config.tileSize;
+            }
+        }
     }
 
     private addPlayer() {

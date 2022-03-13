@@ -9,7 +9,7 @@ type Movement = {
 };
 
 export default class Player extends Actor {
-    private apiPlayer = new ApiPlayer();
+    private player = new ApiPlayer();
     private speed = 250;
 
     private movement: Movement = {
@@ -47,10 +47,6 @@ export default class Player extends Actor {
         }
 
         const position = (this.body as Phaser.Physics.Arcade.Body).position;
-        this.apiPlayer.pos.setPosition(position.x, position.y);
-    }
-
-    public getPosition() {
-        return this.apiPlayer.pos;
+        this.player.pos.setPosition(position.x, position.y);
     }
 }
