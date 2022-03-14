@@ -11,4 +11,9 @@ export class Vector {
         this.x = x;
         this.y = y;
     }
+
+    public moveTo(newPos: Vector) {
+        this.x = newPos.x;
+        this.y = newPos.y;
+    }
 }

@@ -28,3 +28,11 @@ const config = {
 window.addEventListener("load", () => {
     const game = new Phaser.Game(config);
 });
+
+window.onerror = function(msg, url, lineNo, columnNo, error) {
+    document.writeln('Message: ' + msg + "<br><br>");
+    document.writeln('URL: ' + url + "<br><br>");
+    document.writeln('Line: ' + lineNo + "<br><br>");
+    document.writeln('Column: ' + columnNo + "<br><br>");
+    document.writeln('Error object: ' + JSON.stringify(error));
+};

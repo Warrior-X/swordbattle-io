@@ -1,3 +1,4 @@
+import { Socket } from "socket.io-client";
 import { ApiPlayer } from "../api/player";
 import Actor from "./Actor";
 
@@ -30,7 +31,7 @@ export default class Player extends Actor {
         this.movement.right = scene.input.keyboard.addKey("S");
     }
 
-    update(): void {
+    update(socket: Socket): void {
         (this.body as Phaser.Physics.Arcade.Body).setVelocity(0, 0);
 
         if (this.movement["up"] && this.movement["up"].isDown) {
@@ -47,6 +48,17 @@ export default class Player extends Actor {
         }
 
         const position = (this.body as Phaser.Physics.Arcade.Body).position;
-        this.player.pos.setPosition(position.x, position.y);
+
+        if (this.player.pos.x != position.x || this.player.pos.y != position.y) {
+            this.player.pos.setPosition(position.x, position.y);
+            
+            if (this.player.id) {
+                socket.emit("playerMoved", this.player.id, this.player.pos);
+            }
+        }
+    }
+
+    public setPlayerId(id: string) {
+        this.player.id = id;
     }
 }

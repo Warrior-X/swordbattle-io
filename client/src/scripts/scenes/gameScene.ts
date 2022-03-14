@@ -1,10 +1,14 @@
 import Player from "../actors/Player";
 import { config } from "../config";
 import io, { Socket } from "socket.io-client";
+import { ApiPlayer } from "../api/player";
+import Enemy from "../actors/Enemy";
+import { Vector } from "../api/vector";
 
 export default class GameScene extends Phaser.Scene {
     private player: Player;
     private socket: Socket;
+    private enemies: Phaser.GameObjects.Group;
 
     constructor(version: string) {
         super({ key: "GameScene" });
@@ -16,15 +20,35 @@ export default class GameScene extends Phaser.Scene {
         this.addPlayer();
         this.showVersion();
 
+        this.enemies = this.add.group();
+        this.enemies.runChildUpdate = true;
+
         this.socket = io(config.serverLink);
 
         this.socket.on("connect", function () {
             console.log("Connected!");
         });
+
+        this.socket.on("data", (id: string) => {
+            this.player.setPlayerId(id);
+
+            this.socket.on("playerJoined", (player: ApiPlayer) => {
+                const sprite = this.add.existing(new Enemy(this, player));
+                this.enemies.add(sprite);
+            })
+
+            this.socket.on("playerMoved", (id: string, pos: Vector) => {
+                for (const enemy of this.enemies.getChildren() as Enemy[]) {
+                    if (enemy.getPlayerId() === id) {
+                        enemy.moveTo(pos);
+                    }
+                }
+            })
+        })
     }
 
     update() {
-        this.player.update();
+        this.player.update(this.socket);
     }
 
     private setWorldBounds() {
