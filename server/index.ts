@@ -20,12 +20,13 @@ const addPlayer = (id: string) => {
 
 io.on("connection", function (socket) {
     console.log("A user connected: " + socket.id);
-    io.to(socket.id).emit("data", socket.id);
-    const player = new ApiPlayer(socket.id);
+    io.to(socket.id).emit("data", socket.id, players);
+    const player = addPlayer(socket.id);
     socket.broadcast.emit("playerJoined", player);
 
     socket.on("disconnect", function () {
         console.log("A user disconnected: " + socket.id);
+        socket.broadcast.emit("playerLeft", player);
         players = players.filter((player) => player.id != socket.id);
     });
 

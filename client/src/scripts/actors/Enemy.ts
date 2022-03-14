@@ -6,8 +6,9 @@ import Actor from "./Actor";
 export default class Enemy extends Actor {
     private player: ApiPlayer;
 
-    constructor(scene: Phaser.Scene, apiPlayer: ApiPlayer) {
-        super(scene, 700, 500, "player");
+    constructor(scene: Phaser.Scene, apiPlayer: ApiPlayer, pos?: Vector) {
+        pos = pos ?? new Vector(500, 500);
+        super(scene, pos.x, 500, "player");
 
         this.scale = 0.3;
 

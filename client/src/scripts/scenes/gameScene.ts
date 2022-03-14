@@ -84,25 +84,32 @@ export default class GameScene extends Phaser.Scene {
             console.log("Connected!");
         });
 
-        this.socket.on("data", (id: string) => {
-            this.onSocketData(id);
+        this.socket.on("data", (id: string, players: ApiPlayer[]) => {
+            this.onSocketData(id, players);
         });
     }
 
-    private onSocketData(id: string) {
+    private onSocketData(id: string, players: ApiPlayer[]) {
         this.player.setPlayerId(id);
+        for (const player of players) {
+            this.addEnemy(player);
+        }
 
         this.socket.on("playerJoined", (player: ApiPlayer) => {
-            this.onPlayerJoin(player);
+            this.addEnemy(player);
         });
 
         this.socket.on("playerMoved", (id: string, pos: Vector) => {
             this.onPlayerMoved(id, pos);
         });
+
+        this.socket.on("playerLeft", (id: string) => {
+            this.onPlayerLeft(id);
+        })
     }
 
-    private onPlayerJoin(player: ApiPlayer) {
-        const sprite = this.add.existing(new Enemy(this, player));
+    private addEnemy(player: ApiPlayer) {
+        const sprite = this.add.existing(new Enemy(this, player, player.pos));
         this.enemies.add(sprite);
     }
 
@@ -110,6 +117,14 @@ export default class GameScene extends Phaser.Scene {
         for (const enemy of this.enemies.getChildren() as Enemy[]) {
             if (enemy.getPlayerId() === id) {
                 enemy.moveTo(pos);
+            }
+        }
+    }
+
+    private onPlayerLeft(id:string) {
+        for (const enemy of this.enemies.getChildren() as Enemy[]) {
+            if (enemy.getPlayerId() === id) {
+                enemy.destroy();
             }
         }
     }
