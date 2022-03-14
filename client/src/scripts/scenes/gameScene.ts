@@ -1,9 +1,9 @@
 import Player from "../actors/Player";
 import { config } from "../config";
 import io, { Socket } from "socket.io-client";
-import { ApiPlayer } from "../api/player";
+import { ApiPlayer } from "api/player";
 import Enemy from "../actors/Enemy";
-import { Vector } from "../api/vector";
+import { Vector } from "api/vector";
 
 export default class GameScene extends Phaser.Scene {
     private player: Player;
@@ -105,7 +105,7 @@ export default class GameScene extends Phaser.Scene {
 
         this.socket.on("playerLeft", (id: string) => {
             this.onPlayerLeft(id);
-        })
+        });
     }
 
     private addEnemy(player: ApiPlayer) {
@@ -121,7 +121,7 @@ export default class GameScene extends Phaser.Scene {
         }
     }
 
-    private onPlayerLeft(id:string) {
+    private onPlayerLeft(id: string) {
         for (const enemy of this.enemies.getChildren() as Enemy[]) {
             if (enemy.getPlayerId() === id) {
                 enemy.destroy();

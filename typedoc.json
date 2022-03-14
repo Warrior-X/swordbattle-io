@@ -1,0 +1,4 @@
+{
+    "entryPoints": "client/src/scripts/api/",
+    "out": "docs"
+}

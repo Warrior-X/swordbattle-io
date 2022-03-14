@@ -1,7 +1,7 @@
 import { Socket } from "socket.io-client";
-import { ApiPlayer } from "../api/player";
-import { Vector } from "../api/vector";
+import { ApiPlayer } from "api/player";
 import Actor from "./Actor";
+import { Vector } from "api/vector";
 
 export default class Enemy extends Actor {
     private player: ApiPlayer;

@@ -1,5 +1,5 @@
 import { Socket } from "socket.io-client";
-import { ApiPlayer } from "../api/player";
+import { ApiPlayer } from "api/player";
 import Actor from "./Actor";
 
 type Movement = {

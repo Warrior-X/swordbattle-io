@@ -2,8 +2,8 @@ import express from "express";
 import { createServer } from "http";
 import { Server } from "socket.io";
 import cors from "cors";
-import { ApiPlayer } from "../client/src/scripts/api/player";
-import { Vector } from "../client/src/scripts/api/vector";
+import { ApiPlayer } from "api/player";
+import { Vector } from "api/vector";
 
 const server = express();
 const http = createServer(server);

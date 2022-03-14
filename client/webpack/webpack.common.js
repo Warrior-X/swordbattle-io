@@ -11,6 +11,9 @@ module.exports = {
     },
     resolve: {
         extensions: [".ts", ".tsx", ".js"],
+        alias: {
+            api: path.resolve(__dirname, "..", "..", "..", "api")
+        }
     },
     module: {
         rules: [

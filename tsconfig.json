@@ -15,8 +15,13 @@
     "strictPropertyInitialization": false,
 
     "moduleResolution": "node",
-    "lib": ["dom", "esnext"]
+    "lib": ["dom", "esnext"],
+
+    "paths": {
+      "api": ["./api"]
+    },
+    "baseUrl": "."
   },
-  "include": ["client/src/**/*", "server/**/*"],
+  "include": ["client/src/**/*", "server/**/*", "api/**/*"],
   "exclude": ["node_modules", "**/*.spec.ts"]
 }

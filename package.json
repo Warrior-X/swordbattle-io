@@ -9,7 +9,8 @@
   "scripts": {
     "start": "nodemon ./server/index.ts",
     "format": "prettier --check client/src/scripts/** server/**",
-    "format:write": "prettier --write client/src/scripts/** server/**"
+    "format:write": "prettier --write client/src/scripts/** server/**",
+    "docs": "typedoc --out docs ./api/**/*"
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -22,6 +23,7 @@
     "nodemon": "^2.0.15",
     "prettier": "^2.5.1",
     "ts-node": "^10.7.0",
+    "typedoc": "^0.22.13",
     "typescript": "^4.6.2"
   }
 }
