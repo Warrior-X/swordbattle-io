@@ -10,7 +10,7 @@
     "start": "nodemon ./server/index.ts",
     "format": "prettier --check client/src/scripts/** server/**",
     "format:write": "prettier --write client/src/scripts/** server/**",
-    "docs": "typedoc --out docs ./api/**/*"
+    "docs": "typedoc --out docs ./api/*"
   },
   "dependencies": {
     "cors": "^2.8.5",
