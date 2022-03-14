@@ -1,0 +1,4 @@
+{
+    "entryPoints": "api/",
+    "out": "docs"
+}
