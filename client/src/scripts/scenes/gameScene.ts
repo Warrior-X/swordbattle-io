@@ -19,32 +19,8 @@ export default class GameScene extends Phaser.Scene {
         this.addBg();
         this.addPlayer();
         this.showVersion();
-
-        this.enemies = this.add.group();
-        this.enemies.runChildUpdate = true;
-
-        this.socket = io(config.serverLink);
-
-        this.socket.on("connect", function () {
-            console.log("Connected!");
-        });
-
-        this.socket.on("data", (id: string) => {
-            this.player.setPlayerId(id);
-
-            this.socket.on("playerJoined", (player: ApiPlayer) => {
-                const sprite = this.add.existing(new Enemy(this, player));
-                this.enemies.add(sprite);
-            })
-
-            this.socket.on("playerMoved", (id: string, pos: Vector) => {
-                for (const enemy of this.enemies.getChildren() as Enemy[]) {
-                    if (enemy.getPlayerId() === id) {
-                        enemy.moveTo(pos);
-                    }
-                }
-            })
-        })
+        this.initEnemies();
+        this.initSocket(config.serverLink);
     }
 
     update() {
@@ -94,5 +70,47 @@ export default class GameScene extends Phaser.Scene {
             )
             .setOrigin(1, 1)
             .setScrollFactor(0);
+    }
+
+    private initEnemies() {
+        this.enemies = this.add.group();
+        this.enemies.runChildUpdate = true;
+    }
+
+    private initSocket(serverLink: string) {
+        this.socket = io(serverLink);
+
+        this.socket.on("connect", function () {
+            console.log("Connected!");
+        });
+
+        this.socket.on("data", (id: string) => {
+            this.onSocketData(id);
+        });
+    }
+
+    private onSocketData(id: string) {
+        this.player.setPlayerId(id);
+
+        this.socket.on("playerJoined", (player: ApiPlayer) => {
+            this.onPlayerJoin(player);
+        });
+
+        this.socket.on("playerMoved", (id: string, pos: Vector) => {
+            this.onPlayerMoved(id, pos);
+        });
+    }
+
+    private onPlayerJoin(player: ApiPlayer) {
+        const sprite = this.add.existing(new Enemy(this, player));
+        this.enemies.add(sprite);
+    }
+
+    private onPlayerMoved(id: string, pos: Vector) {
+        for (const enemy of this.enemies.getChildren() as Enemy[]) {
+            if (enemy.getPlayerId() === id) {
+                enemy.moveTo(pos);
+            }
+        }
     }
 }

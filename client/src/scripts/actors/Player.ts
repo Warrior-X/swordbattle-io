@@ -49,9 +49,12 @@ export default class Player extends Actor {
 
         const position = (this.body as Phaser.Physics.Arcade.Body).position;
 
-        if (this.player.pos.x != position.x || this.player.pos.y != position.y) {
+        if (
+            this.player.pos.x != position.x ||
+            this.player.pos.y != position.y
+        ) {
             this.player.pos.setPosition(position.x, position.y);
-            
+
             if (this.player.id) {
                 socket.emit("playerMoved", this.player.id, this.player.pos);
             }

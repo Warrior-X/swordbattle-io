@@ -14,16 +14,15 @@ let players: ApiPlayer[] = [];
 
 const addPlayer = (id: string) => {
     const newPlayer = new ApiPlayer(id);
-    players.push(newPlayer)
+    players.push(newPlayer);
     return newPlayer;
-}
+};
 
 io.on("connection", function (socket) {
     console.log("A user connected: " + socket.id);
     io.to(socket.id).emit("data", socket.id);
-    // const player = addPlayer(socket.id);
-    const player = new ApiPlayer(socket.id)
-    socket.broadcast.emit("playerJoined", player)
+    const player = new ApiPlayer(socket.id);
+    socket.broadcast.emit("playerJoined", player);
 
     socket.on("disconnect", function () {
         console.log("A user disconnected: " + socket.id);
@@ -32,7 +31,7 @@ io.on("connection", function (socket) {
 
     socket.on("playerMoved", (id: string, newPos: Vector) => {
         socket.broadcast.emit("playerMoved", id, newPos);
-    })
+    });
 });
 
 http.listen(5000, function () {

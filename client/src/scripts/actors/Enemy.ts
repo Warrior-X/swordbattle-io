@@ -17,7 +17,8 @@ export default class Enemy extends Actor {
     }
 
     update(): void {
-        this.setPosition(this.player.pos.x, this.player.pos.y);}
+        this.setPosition(this.player.pos.x, this.player.pos.y);
+    }
 
     public getPlayerId(): string {
         return this.player.id;
