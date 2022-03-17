@@ -12,14 +12,14 @@ module.exports = {
     resolve: {
         extensions: [".ts", ".tsx", ".js"],
         alias: {
-            api: path.resolve(__dirname, "..", "..", "..", "api")
+            api: path.resolve(__dirname, "..", "..", "api")
         }
     },
     module: {
         rules: [
             {
                 test: /\.tsx?$|\.jsx?$/,
-                include: path.join(__dirname, "../src"),
+                include: [path.join(__dirname, "../src"), path.join(__dirname, "..", "..", "api")],
                 loader: "ts-loader",
             },
         ],

@@ -9,6 +9,5 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '14'
-      - run: npm install
-      - run: cd api
-      - run: npx typedoc --out docs *
+      - run: yarn
+      - run: npx grok --out docs api/*

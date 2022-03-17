@@ -18,10 +18,10 @@
     "lib": ["dom", "esnext"],
 
     "paths": {
-      "api/*": ["./api/*"]
+      "api/*": ["../api/*"]
     },
     "baseUrl": "."
   },
-  "include": ["client/src/**/*", "server/**/*", "api/**/*"],
+  "include": ["src/**/*", "../api/**/*"],
   "exclude": ["node_modules", "**/*.spec.ts"]
 }
