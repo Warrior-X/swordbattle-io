@@ -22,6 +22,6 @@
     },
     "baseUrl": "."
   },
-  "include": ["client/src/**/*", "server/**/*", "api/**/*"],
+  "include": ["server/**/*", "api/**/*"],
   "exclude": ["node_modules", "**/*.spec.ts"]
 }
