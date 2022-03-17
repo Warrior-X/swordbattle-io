@@ -10,4 +10,4 @@ jobs:
         with:
           node-version: '14'
       - run: yarn
-      - run: npx grok --out docs api/*
+      - run: yarn docs
